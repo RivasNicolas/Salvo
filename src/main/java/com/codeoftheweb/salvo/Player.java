@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -47,6 +49,21 @@ public class Player {
         return this.gamePlayers.stream().map(gp -> gp.getGameID()).collect(toSet());
     }
 
+    public Map<String, Object> makePlayerDTO(){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("id", this.getId());
+        dto.put("email",this.getUserName());
+
+        return dto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /*public void addGamePlayer(GamePlayer gamePlayer) {
         gamePlayer.setPlayer(this);
