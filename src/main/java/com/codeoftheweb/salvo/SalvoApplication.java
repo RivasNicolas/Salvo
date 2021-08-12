@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -15,7 +16,7 @@ public class SalvoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository) {
 		return (args) -> {
 			Player player1 = new Player("j.bauer@ctu.gov");
 			Player player2 = new Player("c.obrian@ctu.gov");
@@ -25,6 +26,7 @@ public class SalvoApplication {
 			playerRepository.save(player2);
 			playerRepository.save(player3);
 			playerRepository.save(player4);
+
 			Game game1 = new Game( LocalDateTime.now());
 			Game game2 = new Game( LocalDateTime.now().plusHours(1));
 			Game game3 = new Game( LocalDateTime.now().plusHours(2));
@@ -37,6 +39,7 @@ public class SalvoApplication {
 			gameRepository.save(game4);
 			gameRepository.save(game5);
 			gameRepository.save(game6);
+
 			GamePlayer gamePlayers1 = new GamePlayer(game1, player1, LocalDateTime.now());
 			GamePlayer gamePlayers2 = new GamePlayer(game1, player2, LocalDateTime.now());
 			GamePlayer gamePlayers3 = new GamePlayer(game2, player1, LocalDateTime.now().plusHours(1));
@@ -59,6 +62,11 @@ public class SalvoApplication {
 			gamePlayerRepository.save(gamePlayers9);
 			gamePlayerRepository.save(gamePlayers10);
 			gamePlayerRepository.save(gamePlayers11);
+
+			Ship ship1 = new Ship("Destroyer", gamePlayers1, Arrays.asList("H1", "H2"));
+			Ship ship2 = new Ship("Cruiser", gamePlayers1, Arrays.asList("H5", "H6", "H7"));
+			shipRepository.save(ship1);
+			shipRepository.save(ship2);
 		};
 	}
 }

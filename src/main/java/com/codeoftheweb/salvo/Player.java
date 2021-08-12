@@ -19,7 +19,7 @@ public class Player {
     private Long id;
     private String userName;
 
-    @OneToMany(mappedBy="playerID", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
 
     public Player() { }
@@ -46,7 +46,7 @@ public class Player {
 
     @JsonIgnore
     public Set<Game> getGames() {
-        return this.gamePlayers.stream().map(gp -> gp.getGameID()).collect(toSet());
+        return this.gamePlayers.stream().map(gp -> gp.getGame()).collect(toSet());
     }
 
     public Map<String, Object> makePlayerDTO(){
