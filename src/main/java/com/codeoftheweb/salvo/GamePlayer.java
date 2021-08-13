@@ -88,7 +88,7 @@ public class GamePlayer {
     public Map<String, Object> makeGameViewDTO(){
         Map<String, Object>     dto = new LinkedHashMap<>();
         dto.put("id", this.getGame().getId());
-        dto.put("created", this.getJoinDate());
+        dto.put("created", this.getGame().getCreationDate());
         dto.put("gamePlayers", this.getGame().getGamePlayers()
                 .stream()
                 .map(x -> x.makeGamePlayerDTO())
