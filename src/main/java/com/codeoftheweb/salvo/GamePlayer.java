@@ -108,9 +108,11 @@ public class GamePlayer {
                 .stream()
                 .map(ship -> ship.makeShipDTO())
                 .collect(toList()));
-        dto.put("salvoes", this.getGame().getGamePlayers().getSalvos()
+        dto.put("salvoes", this.getGame().getGamePlayers()
                 .stream()
-                .map(salvo -> salvo.makeSalvoDTO())
+                .flatMap(gamePlayer -> gamePlayer.getSalvos()
+                        .stream()
+                        .map(salvo -> salvo.makeSalvoDTO()))
                 .collect(toList()));
         return dto;
     }
